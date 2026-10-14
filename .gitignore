@@ -1,5 +1,6 @@
 # Segredos e credenciais locais
 Token Github.txt
+.git-askpass-cliplink.cmd
 .env
 .env.*
 
