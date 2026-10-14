@@ -1,0 +1,2 @@
+# Versão homologada para a release 0.3.0; atualize conscientemente a cada release.
+yt-dlp[default,curl-cffi]==2026.8.19

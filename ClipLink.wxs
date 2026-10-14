@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- WiX 4 MSI: per-user install, stable UpgradeCode, major upgrades in-place. -->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package
+      Name="ClipLink"
+      Manufacturer="ClipLink"
+      Version="$(var.AppVersion)"
+      UpgradeCode="2CFAF4A8-DA43-4AB8-9D4D-4E8B9F69F9F0"
+      Scope="perUser"
+      Compressed="yes">
+
+    <SummaryInformation Description="ClipLink Desktop" Manufacturer="ClipLink" />
+    <MajorUpgrade DowngradeErrorMessage="Uma versão mais nova do ClipLink já está instalada." />
+    <MediaTemplate EmbedCab="yes" />
+    <Icon Id="ClipLinkIcon" SourceFile="$(var.PayloadDir)\assets\cliplink.ico" />
+    <Property Id="ARPPRODUCTICON" Value="ClipLinkIcon" />
+
+    <StandardDirectory Id="LocalAppDataFolder">
+      <Directory Id="LocalProgramsFolder" Name="Programs">
+        <Directory Id="INSTALLFOLDER" Name="ClipLink">
+          <Directory Id="AssetsFolder" Name="assets" />
+        </Directory>
+      </Directory>
+    </StandardDirectory>
+
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="ClipLinkStartMenuFolder" Name="ClipLink" />
+    </StandardDirectory>
+
+    <StandardDirectory Id="DesktopFolder" />
+
+    <Feature Id="Main" Title="ClipLink" Level="1">
+      <ComponentRef Id="ClipLinkApp" />
+      <ComponentRef Id="ClipLinkAssets" />
+      <ComponentRef Id="ClipLinkStartMenuShortcut" />
+      <ComponentRef Id="ClipLinkDesktopShortcut" />
+    </Feature>
+
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Component Id="ClipLinkApp" Guid="*">
+        <File Id="ClipLinkExe" Source="$(var.PayloadDir)\ClipLink.exe" KeyPath="yes" />
+        <RegistryValue Root="HKCU" Key="Software\ClipLink" Name="InstallLocation" Value="[INSTALLFOLDER]" Type="string" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="AssetsFolder">
+      <Component Id="ClipLinkAssets" Guid="*">
+        <File Id="ClipLinkIco" Source="$(var.PayloadDir)\assets\cliplink.ico" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <Component Id="ClipLinkStartMenuShortcut" Directory="ClipLinkStartMenuFolder" Guid="*">
+      <Shortcut Id="ClipLinkStartMenuLnk" Name="ClipLink" Target="[INSTALLFOLDER]ClipLink.exe" WorkingDirectory="INSTALLFOLDER" Icon="ClipLinkIcon" />
+      <RemoveFolder Id="RemoveClipLinkStartMenuFolder" On="uninstall" />
+      <RegistryValue Root="HKCU" Key="Software\ClipLink\Shortcuts" Name="StartMenu" Value="1" Type="integer" KeyPath="yes" />
+    </Component>
+
+    <Component Id="ClipLinkDesktopShortcut" Directory="DesktopFolder" Guid="*">
+      <Shortcut Id="ClipLinkDesktopLnk" Name="ClipLink" Target="[INSTALLFOLDER]ClipLink.exe" WorkingDirectory="INSTALLFOLDER" Icon="ClipLinkIcon" />
+      <RegistryValue Root="HKCU" Key="Software\ClipLink\Shortcuts" Name="Desktop" Value="1" Type="integer" KeyPath="yes" />
+    </Component>
+  </Package>
+</Wix>

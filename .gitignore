@@ -1,0 +1,33 @@
+# Segredos e credenciais locais
+Token Github.txt
+.env
+.env.*
+
+# Ambientes e caches locais
+.venv/
+.build-env/
+.build-cache/
+.build-temp/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Saídas geradas pelo build/distribuição
+build/
+build-installer/
+dist/
+release/
+ClipLink/
+ClipLink-Instalado/
+data/
+tools/
+
+# Instaladores e binários gerados
+ClipLink-Setup.exe
+ClipLink-Setup.exe.sha256
+ClipLink-Setup.msi
+ClipLink-Setup.msi.sha256
+ClipLink-Setup.wixpdb
+*.exe
+*.msi
+*.wixpdb

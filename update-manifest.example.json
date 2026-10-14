@@ -1,0 +1,6 @@
+{
+  "version": "0.4.8",
+  "installer_url": "https://seu-dominio.example/ClipLink-Setup.exe",
+  "sha256": "COLOQUE_AQUI_O_SHA256_DO_INSTALLER",
+  "release_notes": "Resumo das mudanças desta versão."
+}
